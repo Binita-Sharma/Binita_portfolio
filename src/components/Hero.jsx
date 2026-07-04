@@ -80,7 +80,7 @@ const Hero = () => {
               Hello!
               <div className="inline-block relative mx-4 align-middle">
                 <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border border-black bg-white flex items-center justify-center overflow-hidden">
-                  <img src="/public/images/avatar_small.jpeg" alt="Binita" className="w-full h-full object-cover" />
+                  <img src="/images/avatar_small.jpeg" alt="Binita" className="w-full h-full object-cover" />
                 </div>
                 <div className="absolute -bottom-2 -right-2 bg-white border border-black rounded-full px-2 py-1 text-sm font-bold shadow-sm">Bin</div>
               </div>

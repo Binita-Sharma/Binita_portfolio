@@ -8,7 +8,7 @@ const Work = () => {
       title: 'SaathiConnect',
       date: 'OCT 29, 2025',
       description: 'Bridging the gap between citizens and local authorities for reporting civic issues.',
-      image: '/public/images/saathiconnect.png',
+      image: '/images/saathiconnect.png',
       link: 'https://play.google.com/store/apps/details?id=app.saathiconnect',
     },
     {
@@ -16,7 +16,7 @@ const Work = () => {
       title: 'BuyLawBook',
       date: 'FEB 4, 2026',
       description: "From 'I want new e-commerce website for my law firm' to 'BuyLawBook' - a seamless journey of design and development.",
-      image: '/public/images/buylawbook.png',
+      image: '/images/BuyLawBook.png',
       link: 'https://www.figma.com/design/ninSzSBReDYOHozW36W49g/bookstore?node-id=0-1&t=e9QOmosykmdilRv8-1',
     },
     {
@@ -24,7 +24,7 @@ const Work = () => {
       title: 'Hindustan petroleum',
       date: 'JUL 10, 2025',
       description: 'hindustan petroleum project.',
-      image: '/public/images/hp.png',
+      image: '/images/hp.png',
       link: 'https://www.figma.com/design/eNjxYDSfQ9sxqHwxfGojbh/hpcl?node-id=0-1&t=w1M7n5zHr1JBybU0-1', 
     }
   ];
