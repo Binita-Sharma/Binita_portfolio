@@ -64,9 +64,14 @@ const Footer = () => {
         <div className="mt-32 pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-gray-500 text-sm">
           <p>© 2026 Binita Sharma. All rights reserved.</p>
           <div className="flex gap-10">
-            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-white transition-colors">Dribbble</a>
-            <a href="#" className="hover:text-white transition-colors">Instagram</a>
+            <a
+              href="https://www.linkedin.com/in/binita-sharmawd"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
       </div>

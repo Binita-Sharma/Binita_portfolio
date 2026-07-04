@@ -15,12 +15,6 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-2">
-          <a href="#" className="w-9 h-9 border border-text-primary rounded-xl flex items-center justify-center hover:bg-bg-primary transition-all">
-            <i className="ph ph-instagram-logo"></i>
-          </a>
-          <a href="#" className="w-9 h-9 border border-text-primary rounded-xl flex items-center justify-center hover:bg-bg-primary transition-all">
-            <i className="ph ph-dribbble-logo"></i>
-          </a>
         </div>
       </div>
     </nav>

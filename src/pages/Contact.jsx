@@ -1,7 +1,56 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  // Create a reference to the form
+  const form = useRef();
+  
+  // State for form loading and status messages
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  // Handle form submission
+  const sendEmail = (e) => {
+    e.preventDefault(); // Prevent page refresh
+    
+    // Show loading state
+    setIsSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+    // 🔑 REPLACE THESE WITH YOUR ACTUAL KEYS FROM EMAILJS
+    const serviceId = 'service_zjrvn93';     // Your Service ID
+    const templateId = 'template_71dzh5v';   // Your Template ID
+    const publicKey = 'M8x1U2g2qxal4BeUt';        // Your Public Key
+
+    // Send the email using EmailJS
+    emailjs
+      .sendForm(serviceId, templateId, form.current, {
+        publicKey: publicKey,
+      })
+      .then(
+        () => {
+          // Success!
+          setStatus({
+            type: 'success',
+            message: '✅ Message sent successfully! I\'ll get back to you soon.',
+          });
+          form.current.reset(); // Clear the form
+        },
+        (error) => {
+          // Error!
+          console.error('Failed to send message:', error.text);
+          setStatus({
+            type: 'error',
+            message: '❌ Failed to send message. Please try again later.',
+          });
+        }
+      )
+      .finally(() => {
+        setIsSubmitting(false); // Hide loading state
+      });
+  };
+
   return (
     <div className="pt-32 pb-20 min-h-screen bg-[#e5e5fa] overflow-hidden relative">
       {/* Background Doodles */}
@@ -71,7 +120,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-lg">Address</h4>
-                    <p className="text-text-secondary">Kolkata , West-Bengal, India</p>
+                    <p className="text-text-secondary">Kolkata, West-Bengal, India</p>
                   </div>
                 </div>
 
@@ -97,13 +146,15 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Right Side: Form */}
-            <form className="space-y-10">
+            {/* Right Side: Form - Updated with EmailJS */}
+            <form ref={form} onSubmit={sendEmail} className="space-y-10">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-black/40">Name</label>
                 <input
                   type="text"
+                  name="user_name"
                   placeholder="What is your name?*"
+                  required
                   className="w-full border-b border-black/20 py-4 focus:outline-none focus:border-black transition-colors bg-transparent text-lg"
                 />
               </div>
@@ -112,7 +163,9 @@ const Contact = () => {
                 <label className="text-sm font-medium text-black/40">Email</label>
                 <input
                   type="email"
+                  name="user_email"
                   placeholder="Your email address?*"
+                  required
                   className="w-full border-b border-black/20 py-4 focus:outline-none focus:border-black transition-colors bg-transparent text-lg"
                 />
               </div>
@@ -121,13 +174,35 @@ const Contact = () => {
                 <label className="text-sm font-medium text-black/40">Message</label>
                 <textarea
                   rows="4"
+                  name="message"
                   placeholder="Tell me about your idea*"
+                  required
                   className="w-full border-b border-black/20 py-4 focus:outline-none focus:border-black transition-colors bg-transparent text-lg resize-none"
                 ></textarea>
               </div>
 
-              <button className="bg-white border border-black px-12 py-5 rounded-xl font-medium text-lg hover:bg-black hover:text-white transition-all shadow-sm">
-                Send a Message
+              {/* Status Message Display */}
+              {status.message && (
+                <div className={`p-4 rounded-lg ${
+                  status.type === 'success' 
+                    ? 'bg-green-50 text-green-800 border border-green-200' 
+                    : 'bg-red-50 text-red-800 border border-red-200'
+                }`}>
+                  {status.message}
+                </div>
+              )}
+
+              {/* Submit Button with Loading State */}
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className={`bg-white border border-black px-12 py-5 rounded-xl font-medium text-lg transition-all shadow-sm ${
+                  isSubmitting 
+                    ? 'opacity-50 cursor-not-allowed' 
+                    : 'hover:bg-black hover:text-white'
+                }`}
+              >
+                {isSubmitting ? '⏳ Sending...' : '✉️ Send a Message'}
               </button>
             </form>
 

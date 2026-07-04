@@ -8,21 +8,24 @@ const Work = () => {
       title: 'SaathiConnect',
       date: 'OCT 29, 2025',
       description: 'Bridging the gap between citizens and local authorities for reporting civic issues.',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=1200',
+      image: '/assets/saathiconnect.png',
+      link: 'https://play.google.com/store/apps/details?id=app.saathiconnect',
     },
     {
       id: 2,
       title: 'BuyLawBook',
       date: 'FEB 4, 2026',
       description: "From 'I hate this system' to 'Can we show other salons?'",
-      image: 'https://images.unsplash.com/photo-1522071823991-b5ae77c4740a?auto=format&fit=crop&q=80&w=1200',
+      image: '/assets/BuyLawBook.png',
+      link: 'https://www.figma.com/design/ninSzSBReDYOHozW36W49g/bookstore?node-id=0-1&t=e9QOmosykmdilRv8-1',
     },
     {
       id: 4,
       title: 'Hindustan petroleum',
       date: 'JUL 10, 2025',
       description: 'An AI-powered system that identifies and flags fraudulent job listings.',
-      image: '/assets/fakejob.png',
+      image: '/assets/hp.png',
+      link: 'https://www.figma.com/design/eNjxYDSfQ9sxqHwxfGojbh/hpcl?node-id=0-1&t=w1M7n5zHr1JBybU0-1', 
     }
   ];
 
@@ -46,13 +49,16 @@ const Work = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24 max-w-6xl mx-auto">
           {projects.map((project, index) => (
-            <motion.div
+            <motion.a
               key={project.id}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group cursor-pointer"
+              className="group cursor-pointer block no-underline text-inherit"
             >
               {/* Card Header with Tab */}
               <div className="relative h-20">
@@ -89,7 +95,7 @@ const Work = () => {
                   {project.description}
                 </p>
               </div>
-            </motion.div>
+            </motion.a>
           ))}
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const quotes = [
@@ -28,82 +28,178 @@ const Quotes = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % quotes.length);
-    }, 5000);
+    }, 5500);
+
     return () => clearInterval(timer);
   }, []);
 
+  const currentQuote = quotes[currentIndex];
+
   return (
-    <section className="py-32 bg-[#1a1a1a] relative overflow-hidden flex items-center justify-center min-h-[800px]">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-blue/10 rounded-full blur-[120px]"></div>
+    <section className="section-padding relative overflow-hidden bg-[#0f0d0d] text-white">
+      <motion.div
+        animate={{
+          x: [0, 20, 0],
+          y: [0, -18, 0],
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute left-[-8rem] top-[-6rem] h-[22rem] w-[22rem] rounded-full bg-accent-red/25 blur-[110px]"
+      />
 
-      <div className="container mx-auto px-5 relative">
-        <div className="relative w-full max-w-4xl mx-auto h-[500px] flex items-center justify-center">
-          
-          {/* Stacked Cards Background */}
-          <div className="absolute w-[90%] h-[400px] bg-[#333] border border-white/10 rounded-2xl rotate-[-6deg] translate-y-4"></div>
-          <div className="absolute w-[90%] h-[400px] bg-[#222] border border-white/10 rounded-2xl rotate-[3deg] translate-y-2"></div>
+      <motion.div
+        animate={{
+          x: [0, -18, 0],
+          y: [0, 16, 0],
+        }}
+        transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-[-7rem] right-[-5rem] h-[24rem] w-[24rem] rounded-full bg-accent-yellow/15 blur-[120px]"
+      />
 
-          {/* Main Animated Card */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, y: 20, rotate: 0 }}
-              animate={{ opacity: 1, y: 0, rotate: -2 }}
-              exit={{ opacity: 0, y: -20, rotate: -5 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-              className="absolute w-full h-auto min-h-[450px] bg-white rounded-2xl p-12 md:p-20 shadow-2xl flex flex-col items-center justify-center text-center"
-            >
-              <span className="text-xs font-bold tracking-[0.2em] text-black/40 mb-12 uppercase">
-                {quotes[currentIndex].category}
-              </span>
+      <div className="container mx-auto px-5 relative z-10">
+        <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] items-stretch">
+          <motion.aside
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.6 }}
+            className="rounded-[2rem] border border-white/10 bg-white/5 p-8 md:p-10 backdrop-blur-xl relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_35%,transparent_65%,rgba(255,255,255,0.06))]" />
 
-              <div className="mb-10 text-4xl text-[#fbe29f]">“</div>
+            <div className="relative">
+              <p className="text-xs uppercase tracking-[0.35em] text-white/45">
+                Voices
+              </p>
 
-              <h3 className="text-2xl md:text-4xl font-medium leading-relaxed tracking-tight text-black mb-12">
-                {quotes[currentIndex].text}
-              </h3>
+              <h2 className="mt-4 text-4xl md:text-6xl font-medium tracking-tight leading-[0.95] max-w-xs">
+                Words that move the work forward.
+              </h2>
 
-              <div className="flex flex-col items-center gap-6">
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-3 bg-black/5 hover:bg-black/10 px-8 py-3 rounded-full text-sm font-medium transition-all"
-                >
-                  START A PROJECT 
-                  <span className="w-6 h-6 bg-black text-white rounded-sm flex items-center justify-center text-[10px]">→</span>
-                </motion.button>
+              <p className="mt-6 text-sm md:text-base leading-7 text-white/70 max-w-sm">
+                A rotating set of client notes designed like a magazine spread, with motion that keeps the section feeling alive.
+              </p>
 
-                <div className="mt-8">
-                   <p className="font-bold text-black uppercase tracking-widest text-sm">
-                     {quotes[currentIndex].author}
-                   </p>
+              <div className="mt-10 flex items-center gap-4">
+                <div className="h-14 w-14 rounded-full border border-white/15 bg-white/8 flex items-center justify-center text-sm font-semibold">
+                  {String(currentIndex + 1).padStart(2, '0')}
+                </div>
+
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-white/45">
+                    Featured quote
+                  </p>
+                  <p className="mt-1 text-lg font-medium">
+                    {currentQuote.author}
+                  </p>
                 </div>
               </div>
 
-              {/* Footer text elements */}
-              <div className="absolute bottom-10 left-10 text-[10px] font-bold tracking-[0.3em] text-black/20 uppercase hidden md:block">
-                BINITA©STUDIO
+              <div className="mt-10 flex flex-wrap gap-3">
+                {quotes.map((quote, index) => (
+                  <button
+                    key={quote.id}
+                    onClick={() => setCurrentIndex(index)}
+                    className={`rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.25em] uppercase transition-all duration-300 ${
+                      currentIndex === index
+                        ? 'border-accent-yellow bg-accent-yellow text-black'
+                        : 'border-white/15 bg-white/5 text-white/60 hover:border-white/35 hover:text-white'
+                    }`}
+                  >
+                    {String(index + 1).padStart(2, '0')}
+                  </button>
+                ))}
               </div>
-              <div className="absolute bottom-10 right-10 text-[10px] font-bold tracking-[0.3em] text-black/20 uppercase hidden md:block">
-                NEPAL
+            </div>
+          </motion.aside>
+
+          <div className="relative rounded-[2rem] border border-white/10 bg-[#161313] p-4 md:p-6 shadow-[0_30px_100px_rgba(0,0,0,0.45)] overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(251,226,159,0.14),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(192,59,34,0.18),transparent_30%)]" />
+
+            <div className="relative h-full min-h-[520px] rounded-[1.6rem] border border-white/10 bg-white/6 p-6 md:p-10 flex flex-col justify-between overflow-hidden">
+              <div className="flex items-center justify-between gap-4">
+                <span className="rounded-full border border-white/15 bg-black/20 px-4 py-2 text-[10px] font-bold tracking-[0.35em] uppercase text-white/60">
+                  {currentQuote.category}
+                </span>
+
+                <span className="text-xs uppercase tracking-[0.3em] text-white/35">
+                  {String(currentIndex + 1).padStart(2, '0')} / {String(quotes.length).padStart(2, '0')}
+                </span>
               </div>
-            </motion.div>
-          </AnimatePresence>
 
-        </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentQuote.id}
+                  initial={{ opacity: 0, y: 28, filter: 'blur(8px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, y: -18, filter: 'blur(8px)' }}
+                  transition={{ duration: 0.55, ease: 'easeOut' }}
+                  className="relative z-10"
+                >
+                  <div className="mb-6 text-6xl md:text-8xl leading-none text-accent-yellow/90 select-none">
+                    “
+                  </div>
 
-        {/* Progress dots */}
-        <div className="flex justify-center gap-3 mt-12">
-          {quotes.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentIndex(i)}
-              className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                currentIndex === i ? 'bg-white w-8' : 'bg-white/20'
-              }`}
-            />
-          ))}
+                  <p className="max-w-3xl text-2xl md:text-5xl font-medium leading-[1.2] tracking-tight text-white">
+                    {currentQuote.text}
+                  </p>
+
+                  <div className="mt-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.35em] text-white/40">
+                        Author
+                      </p>
+                      <p className="mt-2 text-xl md:text-2xl font-semibold">
+                        {currentQuote.author}
+                      </p>
+                    </div>
+
+                    <motion.button
+                      whileHover={{ y: -2, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white text-black px-6 py-3 text-sm font-semibold transition-colors hover:bg-accent-yellow"
+                    >
+                      Start a project
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white">
+                        →
+                      </span>
+                    </motion.button>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="relative z-10 mt-10">
+                <div className="flex gap-2">
+                  {quotes.map((quote, index) => (
+                    <button
+                      key={quote.id}
+                      onClick={() => setCurrentIndex(index)}
+                      className="group flex-1 text-left"
+                      aria-label={`Show quote ${index + 1}`}
+                    >
+                      <div
+                        className={`h-1 rounded-full overflow-hidden bg-white/10 ${
+                          currentIndex === index ? 'ring-1 ring-accent-yellow/40' : ''
+                        }`}
+                      >
+                        <motion.div
+                          key={`${quote.id}-${currentIndex}`}
+                          initial={{ scaleX: currentIndex === index ? 0 : 1 }}
+                          animate={{ scaleX: currentIndex === index ? 1 : 0.35 }}
+                          transition={{ duration: currentIndex === index ? 5.5 : 0.3, ease: 'linear' }}
+                          className="h-full origin-left bg-gradient-to-r from-accent-yellow via-accent-red to-white"
+                        />
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mt-4 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/35">
+                  <span>Rotating testimonials</span>
+                  <span>Motion enabled</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
