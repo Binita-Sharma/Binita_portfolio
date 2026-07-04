@@ -46,7 +46,7 @@ const About = () => {
                  className="bg-white p-4 pb-12 shadow-2xl border border-black/5 rotate-[4deg] absolute -right-10 -top-20 hidden lg:block w-64 z-20"
                >
                  <div className="aspect-square overflow-hidden bg-gray-100 mb-4">
-                    <img src="/assets/avatar_large.png" alt="Binita" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+                    <img src="/public/images/avatar_large.png" alt="Binita" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" />
                  </div>
                  <p className="font-handwriting text-2xl text-center text-black/60">it's me</p>
                  
